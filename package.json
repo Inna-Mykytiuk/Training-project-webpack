@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GregorHorvatH/goit-js-68/issues"
+    "url": "https://github.com/Inna-Mykytiuk/goit-js-68/issues"
   },
   "homepage": "https://Inna-Mykytiuk.github.io/Training-project-webpack",
   "devDependencies": {
@@ -50,6 +50,7 @@
     "express": "^4.18.2",
     "handlebars": "^4.1.2",
     "nodemon": "^2.0.20",
-    "simplelightbox": "^2.11.0"
+    "simplelightbox": "^2.11.0",
+    "uuid": "^9.0.0"
   }
 }
