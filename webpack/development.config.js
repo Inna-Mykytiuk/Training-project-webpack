@@ -5,10 +5,10 @@ module.exports = env => ({
   devtool: 'cheap-eval-source-map',
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader', 'postcss-loader'],
-      // },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
     ],
   },
   plugins: [new HtmlWebpackPlugin({ template: './index.html' })],
