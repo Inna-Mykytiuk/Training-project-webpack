@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import сss from './styles.css';
+import scss from './sass/main.scss';
 
 const getTodo = ({ id, value, checked }) => `
   <li data-id=${id}>
