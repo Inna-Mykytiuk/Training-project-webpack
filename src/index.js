@@ -1,21 +1,38 @@
 import { v4 as uuidv4 } from 'uuid';
-import сss from './styles.css';
 import scss from './sass/main.scss';
+import { getTodo, modal } from './components';
 
-const getTodo = ({ id, value, checked }) => `
-  <li data-id=${id}>
-    <input type="checkbox" ${checked ? 'checked' : ''} />
-    <span>${value}</span>
-    <button data-action="delete">x</button>
-    <button data-action="view">view</button>
-  </li>`;
+// import './styles.css';
 
 const refs = {
   form: document.querySelector('.form'),
   list: document.querySelector('.todo-list'),
+  modalButton: modal.element().querySelector('button'),
 };
 
 let todos = [];
+
+const render = () => {
+  const itemList = todos.map(todo => getTodo(todo)).join('');
+
+  refs.list.innerHTML = '';
+  refs.list.insertAdjacentHTML('beforeend', itemList);
+};
+
+const loadTodos = () => {
+  try {
+    todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+    // throw new Error('lorem ipsum');
+  } catch (error) {
+    console.log('error happened:', error.message);
+    todos = [];
+  }
+};
+
+const saveTodos = () => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
 
 const handleSubmit = event => {
   const input = event.target.elements.text;
@@ -25,16 +42,37 @@ const handleSubmit = event => {
   event.preventDefault();
   todos.push(newTodo);
   input.value = '';
+
+  saveTodos();
   render();
 };
 
 const deleteTodo = id => {
   todos = todos.filter(todo => todo.id !== id);
+
+  saveTodos();
   render();
 };
 
 const viewTodo = id => {
-  console.log('view todo');
+  const text = modal.element().querySelector('.text');
+
+  text.textContent = id;
+  modal.show();
+};
+
+const toggleCheckbox = id => {
+  todos = todos.map(item => {
+    return item.id === id
+      ? {
+          ...item,
+          checked: !item.checked,
+        }
+      : item;
+  });
+
+  saveTodos();
+  render();
 };
 
 const handleTodoClick = event => {
@@ -50,17 +88,21 @@ const handleTodoClick = event => {
     case 'view':
       viewTodo(id);
       break;
+
+    case 'check':
+      toggleCheckbox(id);
+      break;
   }
 };
 
-const render = () => {
-  const itemList = todos.map(todo => getTodo(todo)).join('');
-
-  refs.list.innerHTML = '';
-  refs.list.insertAdjacentHTML('beforeend', itemList);
-};
-
+loadTodos();
 render();
 
 refs.form.addEventListener('submit', handleSubmit);
 refs.list.addEventListener('click', handleTodoClick);
+refs.modalButton.addEventListener('click', modal.close);
+// window.addEventListener('keydown', () => {
+//   if (modal.visible()) {
+//     modal.close();
+//   }
+// });

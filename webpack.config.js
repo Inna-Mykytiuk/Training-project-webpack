@@ -3,6 +3,7 @@ const webpackMerge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackBar = require('webpackbar');
+// const nodeExternals = require('webpack-node-externals');
 
 const loadModeConfig = env => require(`./webpack/${env.mode}.config`)(env);
 
