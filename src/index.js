@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import scss from './sass/main.scss';
+// import scss from './sass/main.scss';
 import { getTodo, modal } from './components';
 
-// import './styles.css';
+import './styles.css';
 
 const refs = {
   form: document.querySelector('.form'),
